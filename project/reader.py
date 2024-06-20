@@ -2,7 +2,7 @@ import json
 import re
 from random import random
 
-from project.env import DIRECTORY_PRIZES
+from project.env import APP_DIRECTORY_PRIZES, APP_FIRSTNAME, APP_SECONDNAME
 
 def number_counter(start = 15) -> int:
 	for i in range(start, 19):
@@ -10,6 +10,10 @@ def number_counter(start = 15) -> int:
 		start += 1
 
 def change_name_files() -> list:
+	'''
+	TODO: There is we only getting True file names
+	:return:  list names
+	'''
 	removed_list = []
 	out_filnames = []
 
@@ -20,7 +24,7 @@ def change_name_files() -> list:
 					continue
 				else:
 					'''Check the name file '''
-					with open(f'data/{name_file}', 'r', encoding='utf-8') as f:
+					with open(f'{APP_DIRECTORY_PRIZES}/{name_file}', 'r', encoding='utf-8') as f:
 						# print(f"File 'f'data/{name_file}' exists")
 						f.close()
 
@@ -31,11 +35,16 @@ def change_name_files() -> list:
 	# print(f'[RESPONCE]: {out_filnames}')
 	return out_filnames
 
-def readCleans_files(name_list:list):
+def readCleans_files(name_list:list) -> list:
+	'''
+	TODO: There we clean the content from charasterc
+	:param name_list:
+	:return: list
+	'''
 	result = []
 	try:
 		for i in range(0, len(name_list)):
-			with open(f'data/{name_list[0]}', 'r', encoding='utf-8') as f:
+			with open(f'{APP_DIRECTORY_PRIZES}/{name_list[0]}', 'r', encoding='utf-8') as f:
 
 				lines = f.readlines()
 				f.close()
@@ -44,16 +53,53 @@ def readCleans_files(name_list:list):
 					name_file = name_list[0].split('.txt')[0]
 					result.append({name_file[-3:]: line})
 			name_list.pop(0)
+		return  name_list
 		# print(f'[result]: {result}')
 
 	except Exception as e:
 		raise ValueError(f'[ERROR message]: Something what is wrong with function "read_files". Message: {e}')
 
-def get_sport_meanList()-> dict:
+def get_sport_meanList()-> list:
 	try:
-		with open(f'data/race_data.json', 'r', encoding='utf-8') as f:
+		with open(f'{APP_DIRECTORY_PRIZES}/race_data.json', 'r', encoding='utf-8') as f:
 			return json.load(f)
 	except Exception as e:
 		raise ValueError(f'[ERROR message]: Something what is wrong with function "get_sport_meanList". Message: {e}')
 
-		# print(f'[f_json]: {f_json}')
+def renameLinesOf_sport_meanList(json_list: list)-> list:
+	'''
+	TODO: There we ganging dictionary/object.
+	Before was: `{
+        "Нагрудный номер": 1,
+        "Категория": "W15",
+        "Имя": "Фаина",
+        "Фамилия": "Martin",
+        "Время старта": "18:01:50",
+        "Время финиша": "23:14:12"
+    },`
+  After will be: '
+  {'Имя и Фамилия': 'Дмитрий Clark',
+   'Нагрудный номер': 16800,
+   'Категория': 'M16',
+   'Время старта': '21:19:23',
+   'Время финиша': '03:16:06'}'
+
+	:param json_list: is a entrypoin for a list of sport men
+	:return: list
+	'''
+
+	new_json_position = {}
+	new_list_position = []
+	for json_ in json_list:
+		if (json_.get(APP_FIRSTNAME) != None) and (json_.get(APP_SECONDNAME) != None):
+			name = json_.get(APP_FIRSTNAME)
+			secondname=json_.get(APP_SECONDNAME)
+			new_json_position.update({f'{APP_FIRSTNAME} и {APP_SECONDNAME}': f'{name} {secondname}'})
+
+		for k, v in json_.items():
+			if k.find(APP_FIRSTNAME) < 0  and (k.find(APP_SECONDNAME) < 0):
+				new_json_position.update({k:v})
+
+		new_list_position.append(new_json_position.copy())
+		new_json_position.clear()
+	return new_list_position

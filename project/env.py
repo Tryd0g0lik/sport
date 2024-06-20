@@ -1,2 +1,4 @@
-import random
-DIRECTORY_PRIZES = '/data'
+APP_FIRSTNAME = "Имя"
+APP_SECONDNAME = 'Фамилия'
+
+APP_DIRECTORY_PRIZES = 'data'
