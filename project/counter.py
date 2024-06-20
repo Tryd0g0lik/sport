@@ -1,7 +1,9 @@
 import datetime
+from project.env import APP_START, APP_END
+from project.servis import cleaning_service
 
 
-def get_time(json_mean: object):
+def get_time(json_list: list):
 	'''
 	TODO: On the entrypoint get single position. It's has
 	 template "{'Имя и Фамилия': 'Фаина Martin', 'Нагрудный номер': 1, 'Категория': 'W15', 'Время старта': '18:01:50', 'Время финиша': '23:14:12'}"
@@ -10,17 +12,17 @@ def get_time(json_mean: object):
 	:return: average time between 'Время старта' and "Время финиша"
 	'''
 	try:
-		time_start = "01:29:23"
-		time_end = "09:23:52"
-		if json_mean.get("Время старта") != None and \
-			json_mean.get("Время финиша") != None:
+		new_list_position = []
+		for json_var in json_list:
+			if json_var.get("Время старта") != None and \
+				json_var.get("Время финиша") != None:
 
-			time_start = json_mean["Время старта"]
-			time_end = json_mean["Время финиша"]
-		# Convertation the data's string type to a time type
-		start = datetime.datetime.strptime(time_start, "%H:%M:%S")
-		end = datetime.datetime.strptime(time_end, "%H:%M:%S")
-		time_result = (end - start)
-		print(time_result)
+
+				# Convertation the data's string type to a time type
+
+				responce = cleaning_service(json_var, APP_START, APP_END, True)
+				new_list_position.append(responce)
+		return  new_list_position
+
 	except Exception as e:
 		pass

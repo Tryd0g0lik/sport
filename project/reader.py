@@ -3,6 +3,8 @@ import re
 from random import random
 
 from project.env import APP_DIRECTORY_PRIZES, APP_FIRSTNAME, APP_SECONDNAME
+from project.servis import cleaning_service
+
 
 def number_counter(start = 15) -> int:
 	for i in range(start, 19):
@@ -88,18 +90,9 @@ def renameLinesOf_sport_meanList(json_list: list)-> list:
 	:return: list
 	'''
 
-	new_json_position = {}
+
 	new_list_position = []
 	for json_ in json_list:
-		if (json_.get(APP_FIRSTNAME) != None) and (json_.get(APP_SECONDNAME) != None):
-			name = json_.get(APP_FIRSTNAME)
-			secondname=json_.get(APP_SECONDNAME)
-			new_json_position.update({f'{APP_FIRSTNAME} и {APP_SECONDNAME}': f'{name} {secondname}'})
+		new_list_position.append(cleaning_service(json_, APP_FIRSTNAME, APP_SECONDNAME, False))
 
-		for k, v in json_.items():
-			if k.find(APP_FIRSTNAME) < 0  and (k.find(APP_SECONDNAME) < 0):
-				new_json_position.update({k:v})
-
-		new_list_position.append(new_json_position.copy())
-		new_json_position.clear()
 	return new_list_position
