@@ -45,7 +45,10 @@ def readCleans_files(name_list:list) -> list:
 	'''
 	result = []
 	try:
-		for i in range(0, len(name_list)-1):
+		# for i in range(0, len(name_list) - 1):
+
+		while len(name_list) > 0:
+			# hook = None
 			with open(f'{APP_DIRECTORY_PRIZES}/{name_list[0]}', 'r', encoding='utf-8') as f:
 
 				lines = f.readlines()
@@ -55,8 +58,9 @@ def readCleans_files(name_list:list) -> list:
 					name_file = name_list[0].split('.txt')[0]
 					result.append({name_file[-3:]: line})
 			print('[name_list:]', name_list[0], '/', len(name_list))
-			name_list.pop(0)
 			yield  result
+			name_list.pop(0)
+			i = 0
 		# return result
 		# print(f'[result]: {result}')
 
