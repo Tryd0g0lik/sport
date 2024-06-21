@@ -11,6 +11,6 @@ test-case-17-06-24-Tryd0g0lik
 .idea
 .vscode
 
-*.json
+
 !data-out
 
