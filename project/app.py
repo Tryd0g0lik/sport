@@ -14,19 +14,17 @@ def main():
     list_w16 = []
     list_w18 = []
     l = change_name_files()
-    categories = readCleans_files(l) # -> list "[{'m15': '1 место Золотая медаль'}]"
-    # print('[categories:]', categories[0], '/', len(categories))
+    # categories = readCleans_files(l) # -> list "[{'m15': '1 место Золотая медаль'}]"
+
     spot_men_list = get_sport_meanList() # -> list
     total_list_ofMen = renameLinesOf_sport_meanList(spot_men_list)
 
     total_list_ofTime = get_time(total_list_ofMen)
     total_list_ofMen.clear()
-    # for categore_list in categories:
-    #     for categore in categore_list:
+
     for one_mane in total_list_ofTime:
         categore = one_mane['Категория'].lower()
-        # number_position_ofCategore = int(list(categore.values())[0].split('место')[0].strip())
-        # name_categore = categore
+
         if categore.find('m15') >= 0:
             list_m15.append(one_mane)
         elif categore.find('m16') >= 0:
@@ -82,7 +80,7 @@ def main():
 
                 place = 0
                 new_l = l.copy()
-                for val in readCleans_files(new_l): # position_sorted_list: # enumerate(categore_list):
+                for val in readCleans_files(new_l):
                     k = list(val[0].keys())[0]
                     for v in val:
                         if k.find(key_) < 0:
