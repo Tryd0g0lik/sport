@@ -10,4 +10,7 @@ test-case-17-06-24-Tryd0g0lik
 .DS_Store
 .idea
 .vscode
-data-out/*.json
+
+*.json
+!data-out
+
