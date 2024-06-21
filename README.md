@@ -1,5 +1,5 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/YeZ4Jj1g)
-### Тестовое задание Python
+### Задание Python
 
 В файле race_data.json находятся данные о соревновании, в котором участвуют 100000 спортсменов.
 
