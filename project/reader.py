@@ -45,8 +45,6 @@ def readCleans_files(name_list:list) -> list:
 	'''
 	result = []
 	try:
-		# for i in range(0, len(name_list) - 1):
-
 		while len(name_list) > 0:
 			# hook = None
 			with open(f'{APP_DIRECTORY_PRIZES}/{name_list[0]}', 'r', encoding='utf-8') as f:
@@ -61,8 +59,6 @@ def readCleans_files(name_list:list) -> list:
 			yield  result
 			name_list.pop(0)
 			i = 0
-		# return result
-		# print(f'[result]: {result}')
 
 	except Exception as e:
 		raise ValueError(f'[ERROR message]: Something what is wrong with function "read_files". Message: {e}')

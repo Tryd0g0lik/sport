@@ -46,7 +46,7 @@ def main():
     position_sorted_list = []
     try:
         for one_list in categories_list:
-            for i in range(0, 10) : # len(one_list) - 1
+            for i in range(0, len(one_list) - 1) : #
                 if i == 0:
                     position_sorted_list.append(one_list[0])
                 else:
